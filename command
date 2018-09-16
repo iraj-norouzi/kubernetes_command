@@ -5,7 +5,7 @@ kubectl port-forward <POD> 8080                    Port forward the exposed pod 
 kubectl attach <PODNAME> -i                        Attach to the pod
 kubectl exec <POD> -- command                      Execute a command on the pod
 kubectl label pods <POD> mylabel=awesome           Add a new lable to pod
-kubectl run -i -tty busybox --image=busybox --restart=Never -- sh   Run a shell in a pod -very useful for debuging
+kubectl run -i -tty busybox --image=busybox --restart=Never -- sh   Run a shell in a pod -very useful for debuging (telnet containerIP PORT)
 examples
 kubectl attach nodehelloworld.example.com
 kubectl delete pod nodehelloworld.example.com      delete pod 
