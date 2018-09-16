@@ -1,3 +1,4 @@
+https://www.howtoforge.com/tutorial/centos-kubernetes-docker-cluster/
 yum erase docker-engine-selinux
 
 yum install -y --setopt=obsoletes=0 \
