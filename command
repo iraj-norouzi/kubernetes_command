@@ -22,12 +22,13 @@ kubectl get rc       show replication control
 kubectl scale --replicas=2  rc/helloworld-controller #scale with rc (replication control)
 
 deployments 
-kubectl get deployments                           get information about current deployments
-kubectl get rs                                    get about replica set
-kubectl get pods  --show-labels                   get show labels
+kubectl get deployments                           #get information about current deployments
+kubectl get rs                                    #get about replica set
+kubectl get pods  --show-labels                   #get show labels
 kubectl create -f deployment/helloworld.yml --record
-kubectl rollout status deploymne/helloworld-deployment   get deployments status
+kubectl rollout status deploymne/helloworld-deployment  # get deployments status
 kubectl set image deployment/helloworld-deployment k8s-demo=k8s-demo:2 
+kubectl rollout status deploymne/helloworld-deployment 
 kubectl edit deployment/helloworld-deployment  #revisionHistoryLimit: 100
 kubectl rollout history deployments/helloworld-deployment
 kubectl rollout undo deployments/helloworld-deployment   #rollback to previos version
