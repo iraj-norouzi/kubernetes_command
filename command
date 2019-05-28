@@ -35,4 +35,15 @@ kubectl rollout undo deployments/helloworld-deployment   #rollback to previos ve
 kubectl rollout undo deployments/helloworld-deployment --to-revision=n 	 #rollback to n version
 kubectl expose deployment helloworld-deployment --type=NodePort 
 kubectl set image deployment/helloworld-deployment k8s-demo=wardviaene/k8s-demo:2
+##############################################################################################
+kubectl get nodes --show-labels
+sample1:
+      nodeSelector:
+        hardware: high-spec
+sample2:
+      nodeSelector:
+        kubernetes.io/hostname: docker3
 
+kubectl label nodes docker4 hardware=high-spec
+
+#############################################################################################
