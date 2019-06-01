@@ -3,7 +3,7 @@ kubectl describe pod <POD>                         describe about pod
 kubectl expose pod <POD> --port=444 --name=front   Expose the port of a pod (creates a new service)
 kubectl port-forward <POD> 8080                    Port forward the exposed pod port to your local machine
 kubectl attach <PODNAME> -i                        Attach to the pod
-kubectl exec <POD> -- command                      Execute a command on the pod
+kubectl exec <POD> -i -t -- /bin/bash                     Execute a command on the pod
 kubectl label pods <POD> mylabel=awesome           Add a new lable to pod
 kubectl run -i -tty busybox --image=busybox --restart=Never -- sh   Run a shell in a pod -very useful for debuging (telnet containerIP PORT)
 examples
@@ -47,3 +47,28 @@ sample2:
 kubectl label nodes docker4 hardware=high-spec
 
 #############################################################################################
+Secret
+
+echo -n username | base64
+echo -n password | base64
+sample1:
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secrets
+type: Opaque
+data:
+  username: cm9vdA==
+  password: cGFzc3dvcmQ=
+
+
+sample2:
+        volumeMounts:
+        - name: cred-volume
+          mountPath: /etc/creds
+          readOnly: true
+      volumes:
+      - name: cred-volume
+        secret: 
+          secretName: db-secrets
+
