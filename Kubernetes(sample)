@@ -1,0 +1,46 @@
+##########################################################################
+###################(Dockerfile sample and tutorial site)####################
+##########################################################################
+FROM node:4.6
+WORKDIR /app
+ADD ./app
+RUN npm install
+EXPOSE 3000
+CMD npm start
+https://www.digitalocean.com/community/tutorials/docker-explained-using-dockerfiles-to-automate-building-of-images
+https://github.com/iraj-norouzi/DockerCheatSheet
+
+docker run -p 3000:3000 -t 
+
+
+##########################################################################
+####################################(POD)###################################
+##########################################################################
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-server
+  labels:
+    app: helloworld
+spec:
+  containers:
+  - name: nginx-igap
+    image: nginx
+    ports:
+    - name: nginx-port
+      containerPort: 80
+
+
+kubernetes cheat sheet 
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+
+k create -f   first-app/helloworld.yml
+kubectl port-forward nodehelloworld.example.com  81:80
+curl localhost:81
+
+kubectl expose pod web-server --type=NodePort --name web-server-service
+
+##########################################################################
+####################################(UsefulCommand)###################################
+##########################################################################
+kubectl arrach web-server
