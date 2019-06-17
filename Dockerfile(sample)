@@ -10,3 +10,4 @@ CMD npm start
 https://www.digitalocean.com/community/tutorials/docker-explained-using-dockerfiles-to-automate-building-of-images
 https://github.com/iraj-norouzi/DockerCheatSheet
 
+docker run -p 3000:3000 -t 
