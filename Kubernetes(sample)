@@ -43,4 +43,7 @@ kubectl expose pod web-server --type=NodePort --name web-server-service
 ##########################################################################
 ####################################(UsefulCommand)###################################
 ##########################################################################
-kubectl attach web-server
+kubectl attach web-server -i
+kubectl exec pod -- ls /
+kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
+
