@@ -1,0 +1,10 @@
+##########################################################################
+###################Dockerfile sample and tutorial site####################
+##########################################################################
+FROM node:4.6
+WORKDIR /app
+ADD ./app
+RUN npm install
+EXPOSE 3000
+CMD npm start
+https://www.digitalocean.com/community/tutorials/docker-explained-using-dockerfiles-to-automate-building-of-images
