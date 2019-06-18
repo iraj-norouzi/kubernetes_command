@@ -48,3 +48,4 @@ kubectl exec pod -- ls /
 kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
 kubectl describe {pod,service,node,...}  
 
+
