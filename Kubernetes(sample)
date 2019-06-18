@@ -1,3 +1,4 @@
+https://www.weave.works/blog/kubernetes-beginners-guide/
 ##########################################################################
 ###################(Dockerfile sample and tutorial site)####################
 ##########################################################################
@@ -47,11 +48,39 @@ kubectl attach web-server -i
 kubectl exec pod -- ls /
 kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
 kubectl describe {pod,service,node,...}  
+kubectl get rc    #display replication controller
+
 ##########################################################################
 ####################################(Replication Controller)##############
 ##########################################################################
-if your application is stateless you can horizontally scale it
+if your application is stateless you can horizontally scale it (scale out)
 stateless=your application does not have a state, it doesnot write any local file / keeps local sessions
-all traditional databases (mysql,postgres) are stateful , they have database files that can't be split over multiple instance
+all traditional databases (mysql,postgres) are stateful , they have database files that can't be split over multiple instance(scale up)
+Deployments are a newer and higher level concept than Replication Controllers. They manage the deployment of Replica Sets 
+(also a newer concept, but pretty much equivalent to Replication Controllers), and allow for easy updating of a Replica Set as well
+as the ability to roll back to a previous deployment.
+Previously this would have to be done with kubectl rolling-update which was not declarative and did not provide the rollback features.
 
 
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: helloworld-controller
+spec:
+  replicas: 2
+  selector:
+    app: helloworld
+  template:
+    metadata:
+      labels:
+        app: helloworld
+    spec:
+      containers:
+      - name: k8s-demo
+        image: wardviaene/k8s-demo
+        ports:
+        - name: nodejs-port
+          containerPort: 3000
+
+
+Horizental scale
