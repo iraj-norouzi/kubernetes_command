@@ -41,11 +41,17 @@ curl localhost:81
 kubectl expose pod web-server --type=NodePort --name web-server-service
 
 ##########################################################################
-####################################(UsefulCommand)###################################
+####################################(UsefulCommand)#######################
 ##########################################################################
 kubectl attach web-server -i
 kubectl exec pod -- ls /
 kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
 kubectl describe {pod,service,node,...}  
+##########################################################################
+####################################(Replication Controller)##############
+##########################################################################
+if your application is stateless you can horizontally scale it
+stateless=your application does not have a state, it doesnot write any local file / keeps local sessions
+all traditional databases (mysql,postgres) are stateful , they have database files that can't be split over multiple instance
 
 
