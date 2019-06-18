@@ -46,4 +46,5 @@ kubectl expose pod web-server --type=NodePort --name web-server-service
 kubectl attach web-server -i
 kubectl exec pod -- ls /
 kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
+kubectl describe {pod,service,node,...}  
 
