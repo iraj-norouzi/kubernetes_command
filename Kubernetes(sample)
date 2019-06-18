@@ -84,3 +84,5 @@ spec:
 
 
 Horizental scale
+kubectl scale --replicas=4 -f /root/kubernetes-course/replication-controller/helloworld-repl-controller.yml 
+kubectl scale --replicas=4 rc/helloworld-controller
