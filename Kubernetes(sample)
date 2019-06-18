@@ -86,3 +86,20 @@ spec:
 Horizental scale
 kubectl scale --replicas=4 -f /root/kubernetes-course/replication-controller/helloworld-repl-controller.yml 
 kubectl scale --replicas=4 rc/helloworld-controller
+##########################################################################
+####################################(Deployments)#########################
+##########################################################################
+kubectl get deployments                           #get information about current deployments
+kubectl get rs                                    #get about replica set
+kubectl get pods  --show-labels                   #get show labels
+kubectl create -f deployment/helloworld.yml --record
+kubectl rollout status deploymne/helloworld-deployment  # get deployments status
+kubectl set image deployment/helloworld-deployment k8s-demo=k8s-demo:2 
+kubectl rollout status deploymne/helloworld-deployment 
+kubectl edit deployment/helloworld-deployment  #revisionHistoryLimit: 100
+kubectl rollout history deployments/helloworld-deployment
+kubectl rollout undo deployments/helloworld-deployment   #rollback to previos version
+kubectl rollout undo deployments/helloworld-deployment --to-revision=n 	 #rollback to n version
+kubectl expose deployment helloworld-deployment --type=NodePort 
+kubectl set image deployment/helloworld-deployment k8s-demo=wardviaene/k8s-demo:2
+ 
