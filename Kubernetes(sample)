@@ -72,7 +72,7 @@ spec:
     app: helloworld
   template:
     metadata:
-      labels:
+       labels:
         app: helloworld
     spec:
       containers:
@@ -89,6 +89,25 @@ kubectl scale --replicas=4 rc/helloworld-controller
 ##########################################################################
 ####################################(Deployments)#########################
 ##########################################################################
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: helloworld-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: helloworld
+    spec:
+      containers:
+      - name: k8s-demo
+        image: wardviaene/k8s-demo
+        ports:
+        - name: nodejs-port
+          containerPort: 3000
+
+kubectl expose deployment helloworld-deployment --type=NodePort 
 kubectl get deployments                           #get information about current deployments
 kubectl get rs                                    #get about replica set
 kubectl get pods  --show-labels                   #get show labels
