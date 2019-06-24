@@ -120,6 +120,8 @@ kubectl rollout history deployments/helloworld-deployment
 kubectl rollout undo deployments/helloworld-deployment   #rollback to previos version
 kubectl rollout undo deployments/helloworld-deployment --to-revision=n 	 #rollback to n version
 kubectl expose deployment helloworld-deployment --type=NodePort 
+kubectl scale --replicas=4 -f /root/kubernetes-course/replication-controller/helloworld-repl-controller.yml 
+kubectl scale --replicas=4 rc/helloworld-controller
  
 ##########################################################################
 ####################################(Service)#############################
