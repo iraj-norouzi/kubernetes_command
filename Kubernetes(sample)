@@ -121,4 +121,40 @@ kubectl rollout undo deployments/helloworld-deployment   #rollback to previos ve
 kubectl rollout undo deployments/helloworld-deployment --to-revision=n 	 #rollback to n version
 kubectl expose deployment helloworld-deployment --type=NodePort 
  
- 
+##########################################################################
+####################################(Service)#############################
+##########################################################################
+
+
+
+ClusterIP : This is the default Service Type, only reachable from within the cluster. Consider this as an internal load balancer.
+NodePort : The NodePort opens a static port on each node’s external networking interface. A ClusterIP is also automatically created when we create a NodePort Service. External traffic to the port will be routed to the internal cluster IP. We can use the combination of “NodeIP : NodePort” to call the NodePort Service from outside the cluster.
+LoadBalancer : The LoadBalancer Service type creates a cloud provider’s external load balancer. The NodePort and ClusterIP will also be created automatically when we create a LoadBalancer Service. External traffic to the load balancer will be routed to the NodePort which in turn will be routed to internal ClusterIP.
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-igap
+  labels:
+    app: nginx-igap
+spec:
+  containers:
+  - name: nginx-igap
+    image: nginx
+    ports:
+    - name: nginx-port
+      containerPort: 80
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-igap-service
+spec:
+  ports:
+  - port: 80
+    targetPort: nginx-port
+    protocol: TCP
+  selector:
+    app: nginx-igap
+  type: NodePort
