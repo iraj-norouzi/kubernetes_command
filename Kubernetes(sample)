@@ -160,3 +160,13 @@ spec:
   selector:
     app: nginx-igap
   type: NodePort
+##########################################################################
+####################################(LABLE)###################################
+##########################################################################
+for instance a particular pod can only run on a node labled with "envirement" equals "Development" or "qa"
+once nodes are tagged you can use lable selectors to let pods only run on specific nodes
+
+there are 2 steps require to  run a pod on specific set of nodes:
+-first you tag the node
+-then you add a nodeSelector to your pod configuration
+
