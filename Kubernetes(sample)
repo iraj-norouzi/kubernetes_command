@@ -1,4 +1,6 @@
 https://www.weave.works/blog/kubernetes-beginners-guide/
+https://wpengine.linuxacademy.com/wp-content/uploads/2019/04/Kubernetes-Cheat-Sheet_04032019.pdf
+
 ##########################################################################
 ###################(Dockerfile sample and tutorial site)####################
 ##########################################################################
@@ -8,6 +10,7 @@ ADD ./app
 RUN npm install
 EXPOSE 3000
 CMD npm start
+COPY
 https://www.digitalocean.com/community/tutorials/docker-explained-using-dockerfiles-to-automate-building-of-images
 https://github.com/iraj-norouzi/DockerCheatSheet
 
@@ -205,4 +208,151 @@ to detect and resolve problem with your application you can run health checks
 you can run 2 duffrent type of health checks
 -running a command in the container periodiclly
 -perodic checks on a url(http)
+
+kubectl edit deployment/helloworld-deployment
+
+Kubernetes Liveness and Readiness probes
+
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: k8sprobetester-v1
+  namespace: default
+  labels:
+    app: k8sprobetester
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: k8sprobetester
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 40%
+  template:
+    metadata:
+      labels:
+        app: k8sprobetester
+    spec:
+      containers:
+      - image: "trondhindenes/k8sprobetester:latest"
+        name: k8sprobetester
+        env:
+          - name: START_WAIT_SECS
+            value: '15'
+          - name: SOME_OTHER_VAR
+            value: yasss
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+            httpHeaders:
+              - name: Host
+                value: KubernetesLivenessProbe
+          initialDelaySeconds: 20
+
+##########################################################################
+####################################(SECRET)##############################
+##########################################################################
+
+secret provides a way in kubernetes to distribute credentials keys passwords or secret data to the pods.
+-----------------------------------
+echo -n username | base64
+echo -n password | base64
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secrets
+type: Opaque
+data:
+  username: cm9vdA==
+  password: cGFzc3dvcmQ=
+-----------------------------------
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: helloworld-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: helloworld
+    spec:
+      containers:
+      - name: k8s-demo
+        image: wardviaene/k8s-demo
+        ports:
+        - name: nodejs-port
+          containerPort: 3000
+        volumeMounts:
+        - name: cred-volume
+          mountPath: /etc/creds
+          readOnly: true
+      volumes:
+      - name: cred-volume
+        secret: 
+          secretName: db-secrets #/etc/creds/db-secret/
+-----------------------------------
+apiVersion: v1
+kind: Secret
+metadata:
+  name: wordpress-secrets
+type: Opaque
+data:
+  db-password: cGFzc3dvcmQ=
+-----------------------------------
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: wordpress-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+      - name: wordpress
+        image: wordpress:4-php7.0
+        ports:
+        - name: http-port
+          containerPort: 80
+        env:
+          - name: WORDPRESS_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: wordpress-secrets
+                key: db-password
+          - name: WORDPRESS_DB_HOST
+            value: 127.0.0.1
+      - name: mysql
+        image: mysql:5.7
+        ports:
+        - name: mysql-port
+          containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: wordpress-secrets
+                key: db-password
+
+
+---------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-service
+spec:
+  ports:
+  - port: 31001
+    nodePort: 31001
+    targetPort: http-port
+    protocol: TCP
+  selector:
+    app: wordpress
+  type: NodePort
 
