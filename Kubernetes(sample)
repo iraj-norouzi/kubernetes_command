@@ -197,3 +197,12 @@ spec:
         hardware: docker22
 
 
+##########################################################################
+####################################(HEALTH CHECK)########################
+##########################################################################
+if your application malfunctions the pod and container can still be running but the application might not work anymore
+to detect and resolve problem with your application you can run health checks 
+you can run 2 duffrent type of health checks
+-running a command in the container periodiclly
+-perodic checks on a url(http)
+
