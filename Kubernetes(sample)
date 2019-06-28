@@ -254,7 +254,7 @@ spec:
 ##########################################################################
 ####################################(SECRET)##############################
 ##########################################################################
-
+https://kubernetes.io/docs/concepts/configuration/secret/
 secret provides a way in kubernetes to distribute credentials keys passwords or secret data to the pods.
 -----------------------------------
 echo -n username | base64
