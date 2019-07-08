@@ -357,7 +357,66 @@ spec:
   type: NodePort
 
 ##########################################################################
-####################################(SERVICE DISCOVERY)##############################
+####################################(SERVICE DISCOVERY)###################
 ##########################################################################
+
+
+
+
+##########################################################################
+####################################(INGRESS)#############################
+##########################################################################
+
+What is Ingress?
+
+Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource.
+
+    internet
+        |
+   [ Ingress ]
+   --|-----|--
+   [ Services ]
+   
+   
+##########################################################################
+####################################(VOLUME)##############################
+##########################################################################
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: example-pv
+spec:
+  capacity:
+    storage: 100Gi
+  # volumeMode field requires BlockVolume Alpha feature gate to be enabled.
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local-storage
+  local:
+    path: /mnt/disks/ssd1
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - example-node
+          
+          
+          
+          
+          ---------------
+                  volumeMounts:
+        - mountPath: "/var/lib/mysql"
+          name: mysql-storage
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: db-storage
+
 
 
