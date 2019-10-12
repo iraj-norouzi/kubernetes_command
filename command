@@ -1,3 +1,4 @@
+
 kubectl get pod                                    get all information
 kubectl describe pod <POD>                         describe about pod
 kubectl expose pod <POD> --port=444 --name=front   Expose the port of a pod (creates a new service)
