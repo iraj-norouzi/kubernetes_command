@@ -96,3 +96,5 @@ echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permane
 You can also use a shorthand alias for kubectl that also works with completion:
 
 alias k=kubectl
+#########################################################################
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/
