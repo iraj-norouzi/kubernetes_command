@@ -79,3 +79,6 @@ Dashboard
 ssh -L8001:localhost:8001  10.11.12.74
 https://github.com/kubernetes/dashboard
 https://gist.github.com/iraj-norouzi/168a786947964336f3bb2bd6878b62b8
+##############################################################
+pod logs crash
+kubectl --v=8 logs kube-flannel-ds-amd64-8n6zp --namespace=kube-system -p
