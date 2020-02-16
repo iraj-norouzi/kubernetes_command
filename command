@@ -50,7 +50,12 @@ kubectl label nodes docker4 hardware=high-spec
 
 #############################################################################################
 Secret
+source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
+echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
 
+You can also use a shorthand alias for kubectl that also works with completion:
+
+alias k=kubectl
 echo -n username | base64
 echo -n password | base64
 sample1:
@@ -83,12 +88,7 @@ https://gist.github.com/iraj-norouzi/168a786947964336f3bb2bd6878b62b8
 pod logs crash
 kubectl --v=8 logs kube-flannel-ds-amd64-8n6zp --namespace=kube-system -p
 #########################################################################
-source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
-echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
-
-You can also use a shorthand alias for kubectl that also works with completion:
-
-alias k=kubectl(Autocpmplete)
+(Autocpmplete)
 source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
 
