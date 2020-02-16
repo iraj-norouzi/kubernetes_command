@@ -9,6 +9,7 @@ kubectl exec <POD> -i -t -- /bin/bash                     Execute a command on t
 kubectl label pods <POD> mylabel=awesome           Add a new lable to pod
 kubectl run -i -tty busybox --image=busybox --restart=Never -- sh   Run a shell in a pod -very useful for debuging (telnet containerIP PORT)
 examples
+kubectl attach busybox-6cd57fd969-8ln5n -c busybox -i -t
 kubectl attach nodehelloworld.example.com
 kubectl delete pod nodehelloworld.example.com      delete pod 
 kubectl create -f  /root/kubernetes-course/first-app/helloworld.yml
