@@ -86,6 +86,17 @@ sample2:
         secret: 
           secretName: db-secrets
 
+
+sample3:
+        env:
+          - name: WORDPRESS_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: wordpress-secrets
+                key: db-password
+          - name: WORDPRESS_DB_HOST
+            value: 127.0.0.1
+
 ##########################################################
 Dashboard
 ssh -L8001:localhost:8001  10.11.12.74
