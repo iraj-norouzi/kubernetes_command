@@ -50,13 +50,19 @@ sample2:
 kubectl label nodes docker4 hardware=high-spec
 
 #############################################################################################
+echo -n "root">./username.txt
+echo -n "password">./password.txt
+kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=password.txt
+
+
+
+
+
+
+
+
+###############################################################################################
 Secret
-source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
-echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
-
-You can also use a shorthand alias for kubectl that also works with completion:
-
-alias k=kubectl
 echo -n username | base64
 echo -n password | base64
 sample1:
